@@ -1,7 +1,0 @@
-queue:
-- name: delete
-  rate: 5.0/s
-  retry_parameters:
-    task_retry_limit: 7
-    task_age_limit: 172800s
-  target: 20210609t122330.taskqueue
