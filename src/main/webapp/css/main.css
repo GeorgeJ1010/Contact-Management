@@ -51,14 +51,14 @@ height:590px;
 	margin-top:0px !important;
 	
 }
-.contact
-{
-	box-shadow:0 0 1px 1px black;
-}
 
-.contact :hover
+
+.con :hover 
 {
-	background-color:#94cad0;
+    background-color: #f9fffa;
+    	cursor:pointer;
+    
+
 }
 .active{
 background-color:#e4ffe8;

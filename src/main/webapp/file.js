@@ -942,7 +942,10 @@ function logoutfn()
  
 
 		
-
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
 var xhr = new XMLHttpRequest();
 	xhr.open("GET", "/logout", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
@@ -1092,35 +1095,32 @@ function addfirtslastname(data,cursor) {
         for (let i = 0; i < data.contact.length; i++) 
 		{
 			
-			txt+=`<div class=contact   >`;
+			txt+=`<div class="con"   >`;
 			
 			var obj= data["contact"][i]["detail"] ;
 			// console.log("hi"+obj+'hi');
 	
-			txt+=`
-			
-			 <div id="${data["contact"][i]["contact_id"]}" style="color:black;"  class="fx"   >
-		 <a  id="AFL${data["contact"][i]["contact_id"]}" onclick="addDetail('${data["contact"][i]["contact_id"]}', ${JSON.stringify(obj).split('"').join("&quot;")},'${data["contact"][i]["address"]}'   )" > 
-			<li  contenteditable=false > ${data["contact"][i]["firstName"]} ${data["contact"][i]["lastName"]} </li>
-			
+			txt+=`<div  id="${data["contact"][i]["contact_id"]}" style="color:black;"  class="fx" >
+			<a  id="AFL${data["contact"][i]["contact_id"]}" onclick="addDetail('${data["contact"][i]["contact_id"]}', ${JSON.stringify(obj).split('"').join("&quot;")},'${data["contact"][i]["address"]}'   )" > 
+					<li  contenteditable=false > ${data["contact"][i]["firstName"]} ${data["contact"][i]["lastName"]} </li>
 			 </a> 
 			   <li style="font-size:13px" contenteditable=false >
 
-           ${data["contact"][i]["tag"]}       </li>
-			
-			</div>
-			
-			
-			
-		
+          		 ${data["contact"][i]["tag"]}       </li>
 			 
 			<a onclick="deleteContact('${data["contact"][i]["contact_id"]}')" style="padding:8px;font-size:15px;"> delete</a>
 			
 			<a onclick="editContact('${data["contact"][i]["contact_id"]}' ,${JSON.stringify(obj).split('"').join("&quot;")} )" style="padding:8px;font-size:15px;">edit</a>
-			
+		
+		
+			</div>
+				
 		`;
 		
+			
+			
 		
+
 		
 			txt+=`</div>`;
   	
