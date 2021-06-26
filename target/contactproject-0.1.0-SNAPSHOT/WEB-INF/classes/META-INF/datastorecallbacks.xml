@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-<comment>Datastore Callbacks. DO NOT EDIT BY HAND!</comment>
-<entry key="DatastoreCallbacksFormatVersion">1</entry>
-<entry key=".PrePut">com.project.PrePutCallbacks:updateTimestamp</entry>
-</properties>
