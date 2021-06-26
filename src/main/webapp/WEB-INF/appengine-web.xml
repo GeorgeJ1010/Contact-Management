@@ -15,6 +15,7 @@
 <include path="/images/**.png" expiration="1m"/>
 <include path="/images/plusnew.jpg" expiration="1h"/>
 <include path="/profile_pics/**.png"></include>
+<include path="/css/**.css" expiration="1h"/>
 
 <!--  <include path="/css/**.css" expiration="1h"/> -->
 

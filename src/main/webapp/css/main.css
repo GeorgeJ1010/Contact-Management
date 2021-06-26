@@ -1,0 +1,162 @@
+@charset "ISO-8859-1";
+
+div:focus {
+    background-color:red;
+}
+
+body{
+	margin:0px;
+}
+
+.active{
+		background-color:#e4ffff;
+	
+}
+#mydata {
+  margin: auto;
+  width: 40%;
+border-style: dotted;
+  border-color: blue;
+  padding: 10px;
+} 
+
+#buttons{
+	margin-left:80px;
+}
+.imageHover img{
+	    padding: 10px;
+	
+}
+.imageHover :hover{
+	background-color:#e4ffe8;
+	
+}
+#contact{
+overflow-y:scroll;
+margin-left: 70px;
+    margin-top: 60px;
+
+height:590px;
+}
+#detail{
+	  margin-top:57px;
+	
+}
+.headerContainer{
+	position:fixed;
+    background-color: #9ecea5;
+	width:100%;
+   transition: .5s ease;
+	text-align:center;
+	margin-top:0px !important;
+	
+}
+.contact
+{
+	box-shadow:0 0 1px 1px black;
+}
+
+.contact :hover
+{
+	background-color:#94cad0;
+}
+.active{
+background-color:#e4ffe8;
+
+}
+
+
+
+.flex-container {
+
+  display: flex;
+  font-size: 20px;
+  text-align: center;
+  	background-color: #e4ffe8;
+  
+}
+
+.flex-item-left {
+
+  flex: 10%;
+  border:1px solid black;
+  text-align: center;
+}
+
+.flex-item-right {
+	background-color: #e4ffe8;
+  border:1px solid black;
+  padding: 10px;
+  flex: 50%;
+}
+
+.popup .overlay {
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,0.7);
+  z-index:1;
+  display:none;
+}
+ 
+.popup .content {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  background:#fff;
+   margin: auto;
+     border-style: solid;
+      border-color: black;
+  z-index:2;
+  text-align:center;
+  padding:20px;
+  box-sizing:border-box;
+  font-family:"Open Sans",sans-serif;
+}
+ 
+.popup .close-btn {
+  cursor:pointer;
+  position:absolute;
+  right:20px;
+  top:20px;
+  width:30px;
+  height:30px;
+  background:#222;
+  color:#fff;
+  font-size:25px;
+  font-weight:600;
+  line-height:30px;
+  text-align:center;
+  border-radius:50%;
+}
+ 
+.popup.active .overlay {
+  display:block;
+}
+ 
+.popup.active .content {
+  transition:all 300ms ease-in-out;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+#myProfile{
+
+display:none;
+}
+ 
+.sideBar{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+    background-color: #9ecea5;
+	height:100vh;
+	position:fixed;
+	transition: 0.3s;
+	width: 70px;
+    box-shadow: 0 0 28px 0px black;
+	z-index:1;
+}
+ 

@@ -23,42 +23,37 @@ var getContactByCategory=()=>{
 	xhr.send();
 	xhr.onload = function() {
 		
-	  var data = JSON.parse(this.responseText);
-	// console.log(data);
+		var data = JSON.parse(this.responseText);
      	var obj= data["contact"][0]["detail"] ;
-
-document.getElementById("contact").innerHTML=" ";
-document.getElementById("detail").innerHTML=" ";
-
-addfirtslastname(data," ");
-	  addDetail( data["contact"][0]["contact_id"],obj,data["contact"][0]["address"]  );
+		document.getElementById("contact").innerHTML=" ";
+		document.getElementById("detail").innerHTML=" ";
+		addfirtslastname(data," ");
+	 	addDetail( data["contact"][0]["contact_id"],obj,data["contact"][0]["address"]  );
 
 
- 
-	
 	
 	}
 	
 }
 var showMessage=()=>{
 
-
-document.getElementById("contact").innerHTML="";
-document.getElementById("detail").innerHTML="";
-getContact(cache.get("cursor"))
-
-/*
-var inter=setInterval (()=>{
+	
 	document.getElementById("contact").innerHTML="";
-getContact()}, 2000);
-window.setTimeout(function () {
-console.log("done");
-
-      clearInterval(inter);
-
-  }, 8000);
-
-addContact*/
+	document.getElementById("detail").innerHTML="";
+	getContact(cache.get("cursor"))
+	
+	/*
+	var inter=setInterval (()=>{
+		document.getElementById("contact").innerHTML="";
+	getContact()}, 2000);
+	window.setTimeout(function () {
+	console.log("done");
+	
+	      clearInterval(inter);
+	
+	  }, 8000);
+	
+	addContact*/
 
 }
 
@@ -68,76 +63,75 @@ addContact*/
 
 var deleteAll=()=>{
 
-//var check=document.getElementById("selection");
+	//var check=document.getElementById("selection");
+	
+	
+	/*var r=Cache.get("Contacts")
+	var n=r["contact"].length
+	var obj={}
+	for(let i=0;i<=50 && i<n;i++)
+	{            
+	    if(r["contact"][i]!=null)
+	    {
+	        obj[i]=r["contact"][i]["contact_id"]
+	    }
+	}
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/enqueue",true);
+	xhr.send(JSON.stringify(obj));
+	xhr.onload=function (){
+	if(cache.get("Contacts")["contact"].length>=50)
+	{
+	cache.get("Contacts")["contact"]=cache.get("Contacts")["contact"].splice(50,cache.get("Contacts")["contact"].length-1)
+	deleteAll()
+	}
+	else
+	{
+	Cache.del("Contacts");
+	}
+	
+	}
+	*/
+	//showMessage();
 
 
-/*var r=Cache.get("Contacts")
-var n=r["contact"].length
-var obj={}
-for(let i=0;i<=50 && i<n;i++)
-{            
-    if(r["contact"][i]!=null)
-    {
-        obj[i]=r["contact"][i]["contact_id"]
-    }
-}
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "/enqueue",true);
-xhr.send(JSON.stringify(obj));
-xhr.onload=function (){
-if(cache.get("Contacts")["contact"].length>=50)
-{
-cache.get("Contacts")["contact"]=cache.get("Contacts")["contact"].splice(50,cache.get("Contacts")["contact"].length-1)
-deleteAll()
-}
-else
-{
-Cache.del("Contacts");
-}
+	
+	//var check=document.getElementById("selection");
+	var r=Cache.get("Contacts")
+	var n=r["contact"].length
+	var contacts={}
+	var single={}
+	var data=[]
+	var details={}
+	var cData=[]
+	
+	for(let i=0;i<=50 && i<n;i++)
+	{
+	single={}
+	cData=[]
+		if(r!=null)
+		{
+			single["contact_id"]=r["contact"][i]["contact_id"]
+			var m=r["contact"][i]["detail"].length
+			for(let j=0;j<m;j++)
+			{
+				details={}
+				details["detail_id"]=r["contact"][i]["detail"][j]["detail_id"]
+				cData.push(details)
+			
+		    }
+		    single["detail"]=cData
+		    data.push(single)            
+	    }
 
-}
-*/
-//showMessage();
-
-
-
-//var check=document.getElementById("selection");
-var r=Cache.get("Contacts")
-var n=r["contact"].length
-var contacts={}
-var single={}
-var data=[]
-var details={}
-var cData=[]
-
-for(let i=0;i<=50 && i<n;i++)
-{
-single={}
-cData=[]
-if(r!=null)
-{
-single["contact_id"]=r["contact"][i]["contact_id"]
-var m=r["contact"][i]["detail"].length
-for(let j=0;j<m;j++)
-{
-details={}
-details["detail_id"]=r["contact"][i]["detail"][j]["detail_id"]
-cData.push(details)
-
-        }
-        single["detail"]=cData
-        
-        data.push(single)            
-    }
-
-}
-contacts["contact"]=data
-//console.log(feeds)
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "/enqueue",true);
-xhr.send(JSON.stringify(contacts));    
-xhr.onload=function (){
-        if(cache.get("Contacts")["contact"].length>=50)
+	}
+	contacts["contact"]=data
+	//console.log(feeds)
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/enqueue",true);
+	xhr.send(JSON.stringify(contacts));    
+	xhr.onload=function (){
+	    if(cache.get("Contacts")["contact"].length>=50)
         {
             cache.get("Contacts")["contact"]=cache.get("Contacts")["contact"].splice(50,cache.get("Contacts")["contact"].length-1)
             deleteAll()    
@@ -147,21 +141,7 @@ xhr.onload=function (){
             Cache.del("Contacts")
 
         }                
-   
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
+   }
 }
 /*
 function deleteAll()
@@ -250,7 +230,7 @@ function addfn()
 	}*/
 		document.getElementById("contact").innerHTML="";
 		Cache.del("Contacts");
-getContact();
+		getContact();
 
 }
 
@@ -373,37 +353,26 @@ function editContact(cid,data)
 	//atag.onclick=null;
 	
 	var div=document.getElementById(contactid);
-var list=	div.getElementsByTagName('li');
+	var list=	div.getElementsByTagName('li');
 	
 	list[0].contentEditable=true;	
 	
 	var detailContainer=document.getElementById("detail");
-var element=document.getElementById("saveB");
-console.log(element);
+	var element=document.getElementById("saveB");
+	console.log(element);
 
- if(  document.getElementById(cid).getElementsByTagName('li')[0].isContentEditable==true && element == null)
+ 	if(  document.getElementById(cid).getElementsByTagName('li')[0].isContentEditable==true && element == null)
      {         
-txt1=`</br></br</br></br></br</br><input id="saveB" type="button" value="save"  onclick="updateContact('${cid}', ${JSON.stringify(data).split('"').join("&quot;")}        )" />`;
-	detailContainer.innerHTML+=txt1;	
+		txt1=`</br></br</br></br></br</br><input id="saveB" type="button" value="save"  onclick="updateContact('${cid}', ${JSON.stringify(data).split('"').join("&quot;")}        )" />`;
+		detailContainer.innerHTML+=txt1;	
 	
+     }
+	document.getElementById("A"+cid).contentEditable=true;
+	for(let i=0;i<data.length;i++)
+	{
+			document.getElementById(data[i]["detail_id"]  ).contentEditable=true;
+	   
 	}
-		
-	
-	    
-	          document.getElementById("A"+cid).contentEditable=true;
-				
-				
-			
-				for(let i=0;i<data.length;i++)
-				{
-					document.getElementById(data[i]["detail_id"]  ).contentEditable=true;
-				   
-				}
-				
-				
-								
-		
-	
 	
 }
 
@@ -1145,9 +1114,9 @@ function addfirtslastname(data,cursor) {
 			
 		
 			 
-			<img src= "images/delete.png" onclick="deleteContact('${data["contact"][i]["contact_id"]}')" width="40" height="40"> 
+			<a onclick="deleteContact('${data["contact"][i]["contact_id"]}')" style="padding:8px;font-size:15px;"> delete</a>
 			
-			<img src= "images/edit.png" onclick="editContact('${data["contact"][i]["contact_id"]}' ,${JSON.stringify(obj).split('"').join("&quot;")} )" style="padding:8px;"  width="40" height="25"   />
+			<a onclick="editContact('${data["contact"][i]["contact_id"]}' ,${JSON.stringify(obj).split('"').join("&quot;")} )" style="padding:8px;font-size:15px;">edit</a>
 			
 		`;
 		
@@ -1186,20 +1155,23 @@ console.log(bin);
 */
 
 var toggleContact=(id)=>{
-var cont=document.getElementById(id);
-console.log(cont);
-document.getElementById("contact").innerHTML="";
-document.getElementById("detail").innerHTML="";
-cont.onclick=function(){
 	
-	toggleBin("delete");
-	getDeletedContact()};
-cont.src="images/delete.png";
+	var cont=document.getElementById(id);
+	console.log(cont);
+	document.getElementById("contact").innerHTML="";
+	document.getElementById("detail").innerHTML="";
+	cont.onclick=function(){
+		
+		toggleBin("delete");
+		getDeletedContact()};
+	cont.src="images/delete.png";
 }
+
 var toggleBin=(id)=>{
-var bin=document.getElementById(id);
-document.getElementById("contact").innerHTML="";
-document.getElementById("detail").innerHTML="";
-bin.onclick=function(){toggleContact("delete");getContact()};
-bin.src="images/contact.png"
+	
+	var bin=document.getElementById(id);
+	document.getElementById("contact").innerHTML="";
+	document.getElementById("detail").innerHTML="";
+	bin.onclick=function(){toggleContact("delete");getContact()};
+	bin.src="images/contact.png"
 }

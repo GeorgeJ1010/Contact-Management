@@ -1,0 +1,48 @@
+@charset "ISO-8859-1";
+
+
+body{
+    background-color: #e4ffe8;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 0 7px 0px black;
+    margin-left: 40%;
+    margin-top: 15%;
+    text-align: center;
+    background-color: #c8f1cda8;
+}
+input{
+    border-radius: 5px;
+    border: 1px solid;
+    text-align: center;
+    height: 30px;
+    background-color: #e4ffe8;
+    }
+a{
+	cursor:pointer;
+	text-decoration:none;
+	color:black;
+}
+
+.error{
+	display:none;
+	color:red;
+	font-size:15px;
+}
+.abcRioButtonLightBlue {
+    background-color: #e4ffe8 !important;
+    color: #000000 !important;
+}
+.abcRioButtonContents {
+    margin-left: 0px !important;
+    margin-right: 32px !important;
+}
+.abcRioButton {
+	box-shadow: 0 0px 4px 0 rgb(0 0 0) !important;
+    width: inherit !important;
+
+}

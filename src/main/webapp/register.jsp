@@ -5,6 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/login.css">
+
 </head>
 <body>
 
@@ -25,95 +27,16 @@ if(session.getAttribute("user_id")!=null){
 
 %>
 
-	<script>
-
-function register()
-{
-
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "/register", true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
-          	
-
-		
-		var email=document.getElementById("email").value;
-		
-		
-		var password=document.getElementById("pwd").value;
-		
-	
-	     var obj={"email":email,"password":password};
-	
-	    console.log(JSON.stringify(obj));
-
-
-		xhr.send(JSON.stringify(obj));
-		
-		xhr.onload = function() {
-
-			
-			console.log("response text:"+this.responseText);
-			var data=  JSON.parse(this.responseText);
-           console.log("data:"+data);
-            
-
-
-			if(data["success"]==true)
-				{
-				
-				alert("user created successfully!!");
-				}
-			else
-				{
-				alert("user already exist!!");
-				
-				}
-			
-			
-			
-            }
-/*     fetch("https://georgefulltraining12.uc.r.appspot.com/register",{
-
-        method:"POST",
-
-        body:JSON.stringify({
-            "email":email,
-            "password":password,
-
-        }),
-         
-
-
-
-
-     })
-     .then(resonse=> response.json())
-     .then(json=>console.log(json));
-
-     
-	
-	
-*/
-}
-
-
-
-
-
-</script>
-
-
-	<label for="email">Email:</label>
-	<input type="email" id="email" name="email">
+<div class="container">
+	<h4>Register</h4>
+	<input type="email" placeholder="Email" id="email" name="email">
 	<br>
+	<input type="password" placeholder="Password" id="pwd" name="pwd">
 	<br>
-	<label for="pwd">Password:</label>
-	<input type="password" id="pwd" name="pwd">
-	<br>
-	<br>
-	<input type="button" value="register" onclick="register()" />
+	<input type="button" value="register" onclick="register()" /><br>
 	<a href="/loginpage">login</a>
-
+</div>
+	<script src="userjs.js"></script>
 
 </body>
 </html>
