@@ -5,12 +5,19 @@ div:focus {
 }
 
 body{
-	margin:0px;
+    margin: 0px;
+    background-color: #136b555c;	
 }
 
 .active{
 		background-color:#e4ffff;
 	
+}
+input[type="button"]
+{
+    background-color: #d4ffde;
+    border-radius: 6px;
+    border:1px solid black;
 }
 #mydata {
   margin: auto;
@@ -48,25 +55,51 @@ height:590px;
 	width:100%;
    transition: .5s ease;
 	text-align:center;
+	    box-shadow: 0 0 8px 1px black;
+	
 	margin-top:0px !important;
 	
 }
 
+.con{
+	display:flex;
+	justify-content:center;
+	width:100%;
+    box-shadow: 0 0 1px 1px #4c4a4a17;
+	
+}
+.opBar{
+	display:flex;
+	flex-direction:column;
+	padding-top:10px;
+	flex:10%;
+	cursor:pointer;
+}
 
-.con :hover 
+.con :hover
 {
-    background-color: #f9fffa;
+    background-color: #bef7c79e;
     	cursor:pointer;
     
 
 }
+.name{
+	text-align:center;
+	width:75%;
+	padding-top:10px
+	}
 .active{
 background-color:#e4ffe8;
 
 }
 
+.email{
+	margin-left:44%;
+}
 
-
+#proPic{
+	margin-top:25%;
+}
 .flex-container {
 
   display: flex;

@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
-
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -29,12 +28,14 @@ public class SyncApp {
     
      public static JSONObject sentRequest(URL url, JSONObject obj) throws IOException
 	 {
+         HMACAlgorithm hash=new HMACAlgorithm();
+
         //SyncApp sync=new SyncApp();
     	HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     	conn.setDoOutput(true);
     	conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Authorization",  BCrypt.hashpw(sentKey,BCrypt.gensalt(10)));
+        conn.setRequestProperty("Authorization",   hash.calculateHMAC(SyncApp.sentKey,obj.toString()));
     	conn.setRequestMethod("POST");
     	conn.setReadTimeout(30000);
     	StringBuilder response =null;
