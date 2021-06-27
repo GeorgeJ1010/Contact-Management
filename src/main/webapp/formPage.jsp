@@ -20,7 +20,7 @@ BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService(
 
 
 
-<title>Insert title here</title>
+<title>Contact-Management</title>
 <link rel="stylesheet" href="css/main.css">
 
 

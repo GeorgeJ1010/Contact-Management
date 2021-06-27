@@ -211,7 +211,7 @@ function addfn()
 	xhr.open("POST", "/contact", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	
-   var obj={"contact":{"firstName":"firstName"+i,"lastName":"lastName","address":"address",
+   var obj={"contact":{"tag":"important","firstName":"firstName"+i,"lastName":"lastName","address":"address",
       "detail": [ {"contactType":"phone" ,"value":"7338937115"}]  }     };
        
 
@@ -714,37 +714,37 @@ function addDetail(cid,data,address)
 	var detailContainer = document.getElementById("detail");
 	
 		var txt1=`
-<div class="popup" id="popup-2">
-
-  <div class="overlay"></div>
-  <div class="content">
-    <div class="close-btn" onclick="togglePopupMoreDetail()">&times;</div>
-    <h1>Title</h1>
-    <form  >
-
-
-<div id="container2">
-contactType:   <select id="selectid" name="contactType" class="ex">
-	<option value="phone">    phone 
- 	<option value="email">    email     </option>
-</select>
-
-<input id="inputid" type="text" name="value"  class="ex"/> 
-</div>
-
-<input type="button" value="add" onclick="newaddMoreField()"/>
-<input type="button" value="remove" onclick="removeDiv()"/>  <br/>
-
- <input type="button" value="submit" onclick="addMoreDetail('${cid}');" />
- 
- 
-
-
-</form>
-    
-    
-  </div>
-</div>
+			<div class="popup" id="popup-2">
+			
+			  <div class="overlay"></div>
+			  <div class="content">
+			    <div class="close-btn" onclick="togglePopupMoreDetail()">&times;</div>
+			    <h1>Title</h1>
+			    <form  >
+			
+		
+					<div id="container2">
+					contactType:   <select id="selectid" name="contactType" class="ex">
+						<option value="phone">    phone 
+					 	<option value="email">    email     </option>
+					</select>
+					
+					<input id="inputid" type="text" name="value"  class="ex"/> 
+					</div>
+					
+					<input type="button" value="add" onclick="newaddMoreField()"/>
+					<input type="button" value="remove" onclick="removeDiv()"/>  <br/>
+					
+					 <input type="button" value="submit" onclick="addMoreDetail('${cid}');" />
+					 
+					 
+			
+			
+			</form>
+			    
+			    
+			  </div>
+			</div>
 
 
 
@@ -1083,7 +1083,7 @@ function addDeletedDetail(cid,data,address)
 
 }
 
-
+/*
 function addfirtslastname(data,cursor) {
 		
 		
@@ -1108,11 +1108,7 @@ function addfirtslastname(data,cursor) {
 
           		 ${data["contact"][i]["tag"]}       </li>
 			 
-			<a onclick="deleteContact('${data["contact"][i]["contact_id"]}')" style="padding:8px;font-size:15px;"> delete</a>
-			
-			<a onclick="editContact('${data["contact"][i]["contact_id"]}' ,${JSON.stringify(obj).split('"').join("&quot;")} )" style="padding:8px;font-size:15px;">edit</a>
-		
-		
+	
 			</div>
 				
 		`;
@@ -1122,13 +1118,74 @@ function addfirtslastname(data,cursor) {
 		
 
 		
-			txt+=`</div>`;
+			txt+=`</div>	
+				
+			
+			<a onclick="deleteContact('${data["contact"][i]["contact_id"]}')" style="padding:8px;font-size:15px;"> delete</a>
+			
+			<a onclick="editContact('${data["contact"][i]["contact_id"]}' ,${JSON.stringify(obj).split('"').join("&quot;")} )" style="padding:8px;font-size:15px;">edit</a>
+		<br>
+		`;
   	
 
 }
 
 
 txt+=`<input type="button" value="loadnext20"  onclick="getContact('${cursor}')" /> `
+
+
+	contactContainer.innerHTML+=txt;
+	
+	
+}
+
+*/
+function addfirtslastname(data,cursor) {
+		
+		
+		console.log(data);
+		var txt="";
+        var contactContainer = document.getElementById("contact");
+        
+      //${JSON.stringify(obj).split('"').join("&quot;")}
+        for (let i = 0; i < data.contact.length; i++) 
+		{
+			
+			txt+=`<div class="con"   >`;
+			
+			var obj= data["contact"][i]["detail"] ;
+			// console.log("hi"+obj+'hi');
+	
+			txt+=`<div  id="${data["contact"][i]["contact_id"]}" style="color:black;"  class="fx name" >
+			
+					<a  id="AFL${data["contact"][i]["contact_id"]}" onclick="addDetail('${data["contact"][i]["contact_id"]}', ${JSON.stringify(obj).split('"').join("&quot;")},'${data["contact"][i]["address"]}'   )" > 
+						<li  contenteditable=false > ${data["contact"][i]["firstName"]} ${data["contact"][i]["lastName"]} </li>
+					 </a> 
+				   	<li style="font-size:13px" contenteditable=false >${data["contact"][i]["tag"]}</li>
+				 
+		
+				</div>
+				
+				<div class="opBar" id="opBar${data["contact"][i]["contact_id"]}">
+					<a onclick="deleteContact('${data["contact"][i]["contact_id"]}')" style="font-size:15px;"> delete</a>
+					
+					<a onclick="editContact('${data["contact"][i]["contact_id"]}' ,${JSON.stringify(obj).split('"').join("&quot;")} )" style="padding:8px;font-size:15px;">edit</a>
+				</div>
+				
+			
+			
+		
+
+		
+				</div>	
+
+		`;
+  	
+
+}
+
+
+txt+=`<a value="loadnext20"  onclick="getContact('${cursor}')" style="font-size:12px"> load more</a>`
 
 
 	contactContainer.innerHTML+=txt;
