@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.datastore.Email;
+import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
@@ -101,12 +102,7 @@ public class RegistrationPage extends HttpServlet {
                 || origin.equals("http://localhost:8080"))) {
             user.setUser_id(id.toString());
         } else {
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+
         String user_id=jsonobject.get("user_id").toString();
         
 		user.setUser_id(user_id.toString());
@@ -115,7 +111,7 @@ public class RegistrationPage extends HttpServlet {
       
 		UserDao userdao = new UserDaoImplementation();
 		boolean check = userdao.createUser(user);
-
+		HMACAlgorithm hash=new HMACAlgorithm();
 		PrintWriter out = response.getWriter();
 		 JSONObject obj1=new JSONObject();
 		
@@ -130,29 +126,31 @@ public class RegistrationPage extends HttpServlet {
 										{
 											final String uri = "https://georgefulltraining12.uc.r.appspot.com/register";
 											URL url = new URL(uri);
-											// HTTPRequest req = new HTTPRequest(url, HTTPMethod.POST);
+											
+											
+								              
+								              FetchOptions options = FetchOptions.Builder.withDefaults();
+								              options.setDeadline(2d);
+								              options.doNotFollowRedirects();
+								              
+											HTTPRequest req = new HTTPRequest(url, HTTPMethod.POST,options);
 											// Set HTTP request method.
 											
 											
-								//	req.addHeader(new HTTPHeader("Authorization", BCrypt.hashpw(SyncApp.sentKey,BCrypt.gensalt(10))));
-                                // req.addHeader(new HTTPHeader("Origin","https://georgefulltraining12.uc.r.appspot.com"));
+                                req.addHeader(new HTTPHeader("Origin","https://georgefulltraining12.uc.r.appspot.com"));
                                   
                                 JSONObject reqObj=new JSONObject();
 											 
 											  reqObj.put("email", email);
 											  reqObj.put("password", pwd);
 											  reqObj.put("user_id", user.getUser_id());
-											  
-											//  OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-											 // writer.write(reqObj.toString());
-											  //writer.close();
-											  
-											//  req.setPayload(reqObj.toString().getBytes());
-                                              //obj1=SyncApp.sentRequest(req);
-                                             
-                                              //int respCode = conn.getResponseCode(); // New items get NOT_FOUND on PUT
+											 											  
+											req.setPayload(reqObj.toString().getBytes());
+											req.addHeader(new HTTPHeader("Authorization", hash.calculateHMAC(SyncApp.sentKey,reqObj.toString())));
 
-                                        obj1=SyncApp.sentRequest(url, reqObj);
+                                             obj1=SyncApp.sentRequest(req);
+                                             
+                                               //obj1=SyncApp.sentRequest(url, reqObj);
                                         if(obj1.get("success").toString().equals("true"))
                                         {
                                         log.info("User succesfully registered in cross domain");
@@ -166,13 +164,13 @@ public class RegistrationPage extends HttpServlet {
                                         }
                                     }
 
-                                                                                            else
-                                            {
-                                            obj1.put("success", true);
-                                            obj1.put("code", 200);
-                                            obj1.put("detail", email);
-                                            }                       
-                                                        
+                                    else
+                                       {
+                                         obj1.put("success", true);
+                                         obj1.put("code", 200);
+                                         obj1.put("detail", email);
+                                       }                       
+                                                       
          
             out.println(obj1);
                 

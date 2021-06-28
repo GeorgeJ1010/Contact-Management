@@ -33,7 +33,18 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     
+    String appId=req.getHeader("X-Appengine-Inbound-Appid");
+    if(appId!=null)
+    {
+    	log.info("appdId:"+appId);
+    }
+    else
+    {
+    	log.info("no app id present");
+    }
     
+    
+    /*
     StringBuffer jb = new StringBuffer();
     PrintWriter out=response.getWriter();
     String line = null;
@@ -82,7 +93,7 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
 
     }
 
-
+*/
 }
 
 public void init(FilterConfig fConfig) throws ServletException {

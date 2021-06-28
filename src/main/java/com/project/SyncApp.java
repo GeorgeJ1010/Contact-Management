@@ -25,7 +25,51 @@ public class SyncApp {
 
 	 static final String receiveKey = "9ac80b0c-d004-11eb-b8bc-0242ac130003";
      static final String sentKey = "0115daa6-d00a-11eb-b8bc-0242ac130003";
-    
+   
+     
+
+	 public static JSONObject sentRequest(HTTPRequest req) throws IOException
+	 {
+		JSONObject obj1=new JSONObject();
+		int code = 500;
+		int retryLimit=3;
+		HTTPResponse res =null;
+		int i=0;
+		while(i<retryLimit)
+		{
+			log.info("registration attempt no : "+ i);
+			res = fetcher.fetch(req);
+			
+            code= res.getResponseCode();
+            log.info("code :"+code);
+			if(code>=200 && code<300)
+			{
+				
+				obj1.put("success", true);
+				obj1.put("code",code);
+				break;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		JSONObject json=new JSONObject(res);
+		if(i>2)
+		{
+			obj1.put("message", json.get("message"));
+			obj1.put("success", false);
+			obj1.put("code",code);
+		}
+		return obj1;
+	 }
+	 
+	 
+     
+     
+     
+     
+     /*
      public static JSONObject sentRequest(URL url, JSONObject obj) throws IOException
 	 {
          HMACAlgorithm hash=new HMACAlgorithm();
@@ -85,6 +129,8 @@ public class SyncApp {
 		}
 		return obj1;
 	 }
+	 
+	 */
 
 
 }
