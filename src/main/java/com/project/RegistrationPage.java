@@ -76,6 +76,7 @@ public class RegistrationPage extends HttpServlet {
         response.setContentType("application/json");
         // response.setHeader("Access-Control-Allow-Origin","*");
         response.addHeader("Access-Control-Allow-Origin", "*"); // george
+		HMACAlgorithm hash=new HMACAlgorithm();
 
         StringBuffer jb = new StringBuffer();
         String line = null;
@@ -97,79 +98,77 @@ public class RegistrationPage extends HttpServlet {
         User user = new User(email, pwd);
 
         UUID id = UUID.randomUUID();
-
-        if (origin != null && (origin.equals("https://malkarajtraining12.uc.r.appspot.com")
-                || origin.equals("http://localhost:8080"))) {
-            user.setUser_id(id.toString());
-        } else {
-
-        String user_id=jsonobject.get("user_id").toString();
+		String inboundAppId=request.getHeader("X-Appengine-Inbound-Appid");
         
-		user.setUser_id(user_id.toString());
+		if(inboundAppId!=null && inboundAppId.equals("malkarajtraining12"))
+		{		
+			String token=request.getHeader("Authorization");
+			if(token.equals(hash.calculateHMAC(SyncApp.receiveKey, jsonobject.toString())))
+			{
+		    	String userId=jsonobject.get("user_id").toString();
+				user.setUser_id(userId.toString());						
+			}
+			else
+			{
+				response.sendError(401);
+			}
+		}
+		else
+		{
+			user.setUser_id(id.toString());
 
-		            }
-      
+
+		}
 		UserDao userdao = new UserDaoImplementation();
 		boolean check = userdao.createUser(user);
-		HMACAlgorithm hash=new HMACAlgorithm();
 		PrintWriter out = response.getWriter();
 		 JSONObject obj1=new JSONObject();
 		
 		 
 		 if (check == true) {
 
-			
-			
-			
-			
-		        	            if(origin!=null &&origin.equals("https://malkarajtraining12.uc.r.appspot.com"))
-										{
-											final String uri = "https://georgefulltraining12.uc.r.appspot.com/register";
-											URL url = new URL(uri);
-											
-											
-								              
-								              FetchOptions options = FetchOptions.Builder.withDefaults();
-								              options.setDeadline(2d);
-								              options.doNotFollowRedirects();
-								              
-											HTTPRequest req = new HTTPRequest(url, HTTPMethod.POST,options);
-											// Set HTTP request method.
-											
-											
-                                req.addHeader(new HTTPHeader("Origin","https://georgefulltraining12.uc.r.appspot.com"));
-                                  
-                                JSONObject reqObj=new JSONObject();
-											 
-											  reqObj.put("email", email);
-											  reqObj.put("password", pwd);
-											  reqObj.put("user_id", user.getUser_id());
-											 											  
-											req.setPayload(reqObj.toString().getBytes());
-											req.addHeader(new HTTPHeader("Authorization", hash.calculateHMAC(SyncApp.sentKey,reqObj.toString())));
+			 if(origin!=null &&origin.equals("https://malkarajtraining12.uc.r.appspot.com"))
+				{
+					final String uri = "https://georgefulltraining12.uc.r.appspot.com/register";
+					URL url = new URL(uri);
+			   
+					FetchOptions options = FetchOptions.Builder.withDefaults();
+					options.setDeadline(2d);
+					options.doNotFollowRedirects();
+					
+					HTTPRequest req = new HTTPRequest(url, HTTPMethod.POST,options);
+											                                  
+			         JSONObject reqObj=new JSONObject();
+								 
+					 reqObj.put("email", email);
+					 reqObj.put("password", pwd);
+					 reqObj.put("user_id", user.getUser_id());
+															  
+					 req.setPayload(reqObj.toString().getBytes());
+					 req.addHeader(new HTTPHeader("Authorization", hash.calculateHMAC(SyncApp.sentKey,reqObj.toString())));
 
-                                             obj1=SyncApp.sentRequest(req);
+                     obj1=SyncApp.sentRequest(req);
                                              
-                                               //obj1=SyncApp.sentRequest(url, reqObj);
-                                        if(obj1.get("success").toString().equals("true"))
-                                        {
-                                        log.info("User succesfully registered in cross domain");
-                                        obj1.put("detail", email);
-                                        response.setStatus(200);
-                                        }
-                                        else
-                                        {
-                                        log.severe("User registration failed due to exceeding retry limit");
-                                        response.setStatus(500);
-                                        }
-                                    }
-
-                                    else
-                                       {
-                                         obj1.put("success", true);
-                                         obj1.put("code", 200);
-                                         obj1.put("detail", email);
-                                       }                       
+                                             //obj1=SyncApp.sentRequest(url, reqObj);
+	                     if(obj1.get("success").toString().equals("true"))
+	                     {
+	                           log.info("User succesfully registered in cross domain");
+	                           obj1.put("detail", email);
+	                          response.setStatus(200);
+	                     }
+	                     else
+	                     {
+	                          log.severe("User registration failed due to exceeding retry limit");
+	                             response.setStatus(500);
+	                     }
+	                     
+                  }
+                  else
+                  {
+                    obj1.put("success", true);
+                    obj1.put("code", 200);
+                    obj1.put("detail", email);
+                  }                       
                                                        
          
             out.println(obj1);

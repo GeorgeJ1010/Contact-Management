@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter("/RegisterFilter")
 public class RegisterFilter implements Filter {
 
-static Logger log = Logger.getLogger("logger");
+static Logger logger = Logger.getLogger("logger");
 public RegisterFilter() {
 }
 
@@ -32,18 +32,28 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
 
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
-    
     String appId=req.getHeader("X-Appengine-Inbound-Appid");
-    if(appId!=null)
+    
+    if(req.getMethod().equalsIgnoreCase("POST"))
     {
-    	log.info("appdId:"+appId);
+            
+        if(appId!=null && appId.equals("georgefulltraining12"))
+        {
+        	chain.doFilter(request, response);
+        	logger.info("appdId:"+appId);
+        }
+        else
+        {
+        	logger.info("else part");
+        	chain.doFilter(request, response);
+
+        }
     }
     else
     {
-    	log.info("no app id present");
-    }
-    chain.doFilter(request, response);
+    	chain.doFilter(request, response);
 
+    }
     
     /*
     StringBuffer jb = new StringBuffer();
