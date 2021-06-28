@@ -42,7 +42,8 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
     {
     	log.info("no app id present");
     }
-    
+    chain.doFilter(request, response);
+
     
     /*
     StringBuffer jb = new StringBuffer();
