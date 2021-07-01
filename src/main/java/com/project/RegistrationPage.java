@@ -127,7 +127,7 @@ public class RegistrationPage extends HttpServlet {
 		 
 		 if (check == true) {
 
-			 if(origin!=null &&origin.equals("https://malkarajtraining12.uc.r.appspot.com"))
+			 if(inboundAppId==null || !(inboundAppId.equals("malkarajtraining12")))
 				{
 					final String uri = "https://georgefulltraining12.uc.r.appspot.com/register";
 					URL url = new URL(uri);
