@@ -119,7 +119,6 @@ function onSignIn(googleUser) {
 	
 	     var obj={"email":email,"password":password};
 	
-	    console.log(JSON.stringify(obj));
 
 
 		xhr.send(JSON.stringify(obj));
