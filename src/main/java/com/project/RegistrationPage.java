@@ -161,9 +161,7 @@ public class RegistrationPage extends HttpServlet {
 				}
 				else
 				{
-					resp.put("success", false);
-					resp.put("code", 401);
-					resp.put("detail", "You are not authorized to use this API");
+					response.sendError(401);
 				}
 				out.println(resp);
         
