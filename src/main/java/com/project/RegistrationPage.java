@@ -162,10 +162,6 @@ public class RegistrationPage extends HttpServlet {
 				else
 				{
 					response.sendError(401);
-<<<<<<< HEAD
-=======
-
->>>>>>> 65bc13a584724109437b8693f40a371190ae85cb
 				}
 				out.println(resp);
         
