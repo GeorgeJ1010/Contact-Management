@@ -18,7 +18,7 @@
 
 
 <title>Contact-Management</title>
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/main2.css">
 
 
 
@@ -72,7 +72,7 @@ list-style-type:none;
 			<div class="email">
 			<div class="profilePic" id="profilePic">
 				<img id="proPic"  onclick="clicker()" width="250" height="250" >
-				<form  action="<%=blobstoreService.createUploadUrl("/upload") %> id="myForm" method="POST" enctype="multipart/form-data">
+				<form  action="<%=blobstoreService.createUploadUrl("/upload") %>" id="myForm" method="POST" enctype="multipart/form-data">
   		   			<input type="file" id="img" name="img" onchange="preview()" accept="image/*"  style="display:none;"    ><br><br>
 					<input type="submit" id="subButton"   style="display:none;">
 				</form>
@@ -88,14 +88,15 @@ list-style-type:none;
 
 </div>
 
-
+<!-- 
 <div   id="container" class="flex-container">
 
   <div id="contact" class="flex-item-left"> </div>
   <div id="detail" class="flex-item-right"> </div>
  
+</div>  -->
+<div id="data">
 </div>
-
 
 
 <div class="popup" id="popup-1">
@@ -113,7 +114,7 @@ list-style-type:none;
 			<option value="important">    important 
 		 	<option value="personal">    personal     
 		 	<option value="spam"> spam
-		 	<option value="official"> oficial
+		 	<option value="official"> official
  	
 			</select><br/>
 
@@ -142,12 +143,35 @@ list-style-type:none;
 
 
 </form>
-    
-    
-  </div>
+
+
 </div>
 
+<div class="modal">
 
+    <div class="modal-box">
+
+        <span class="close-btn" onclick="toggleModal()">X</span>
+
+	
+		firstName: <input id="Ufirstid"  name="firstName" required /><br/>
+		lastName:  <input id="Ulastid" type="text" name="lastName"/><br/>
+		address:   <input id="Uaddressid" type="text" name="address"/><br/>
+			tag:    <select id="Utagid" name="tag" class="ex">
+						<option value="important">    important 
+					 	<option value="personal">    personal     
+					 	<option value="spam"> spam
+					 	<option value="official"> official	
+					</select><br/>
+
+					<div id="container2">
+
+					</div>
+		
+		 <input type="button" value="submit" id="updater"/>
+		 
+    </div>
+</div>
 
 
 
@@ -177,17 +201,6 @@ list-style-type:none;
 </div>
 
 
-	            
-
-<script type="text/javascript" src="file.js"></script>
-
-
-<script type="text/javascript" src="cachejs.js">
-</script>
-
-<script type="text/javascript" src="profilejs.js">
-</script>
-
 
 
 <script>
@@ -210,6 +223,19 @@ gapi.auth2.init();
 
 </script>
 
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+
+<script type="text/babel" src="js/file2.js"></script>
+
+
+<script type="text/javascript" src="js/cachejs.js">
+</script>
+
+<script type="text/javascript" src="js/profilejs.js">
+</script>
 
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 

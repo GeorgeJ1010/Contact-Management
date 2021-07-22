@@ -1083,6 +1083,10 @@ function addDeletedDetail(cid,data,address)
 
 }
 
+
+
+
+
 /*
 function addfirtslastname(data,cursor) {
 		
@@ -1138,9 +1142,9 @@ txt+=`<input type="button" value="loadnext20"  onclick="getContact('${cursor}')"
 	
 	
 }
-
 */
-function addfirtslastname(data,cursor) {
+
+const addfirtslastname=(data,cursor)=>{
 		
 		
 		console.log(data);

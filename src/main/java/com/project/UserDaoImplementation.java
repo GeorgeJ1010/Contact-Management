@@ -86,6 +86,7 @@ public class UserDaoImplementation implements UserDao {
 		System.out.println(userId);
 		Key k = KeyFactory.createKey("User", userId);
 		Entity entity = ds.get(k);
+		System.out.println("i user image");
 		if (entity != null) {
 			entity.setProperty("image", name );
 			ds.put(entity);

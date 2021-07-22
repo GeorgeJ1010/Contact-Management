@@ -1,4 +1,43 @@
-@charset "ISO-8859-1";
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 
 div:focus {
     background-color:red;
@@ -13,13 +52,16 @@ body{
 		background-color:#e4ffff;
 	
 }
+ul{
+	list-style-type:none;
+	
+}
 input[type="button"]
 {
     background-color: #d4ffde;
     border-radius: 6px;
     border:1px solid black;
 }
-
 #mydata {
   margin: auto;
   width: 40%;
@@ -30,7 +72,8 @@ border-style: dotted;
 
 #buttons{
 	margin-left:80px;
-	
+	    position: absolute;
+    bottom: 11px;
 }
 .imageHover img{
 	    padding: 10px;
@@ -40,16 +83,29 @@ border-style: dotted;
 	background-color:#e4ffe8;
 	
 }
-#contact{
+.contact{
 overflow-y:scroll;
 margin-left: 70px;
-    margin-top: 60px;
+    margin-top: 65px;
 
 height:590px;
 }
-#detail{
-	  margin-top:57px;
-	
+.detail{
+	  margin-top:65px;;
+	  padding:20px;
+}
+.detail h4{
+	text-align:left;
+}
+.detail{
+	text-align:left;
+	padding-left:10px;
+}
+.con ul{
+	    height: 70px;
+    padding: 5px;
+    margin: 0;
+    width:inherit;
 }
 .headerContainer{
 	position:fixed;
@@ -72,19 +128,19 @@ height:590px;
 }
 .opBar{
 	display:flex;
-	flex-direction:column;
 	padding-top:10px;
 	flex:10%;
 	cursor:pointer;
 }
 
-.con :hover
+.con ul:hover
 {
     background-color: #bef7c79e;
     	cursor:pointer;
     
 
 }
+
 .name{
 	text-align:center;
 	width:75%;
@@ -122,6 +178,7 @@ background-color:#e4ffe8;
 	background-color: #e4ffe8;
   border:1px solid black;
   padding: 10px;
+  list-style-type:none;
   flex: 50%;
 }
 
@@ -194,4 +251,73 @@ display:none;
     box-shadow: 0 0 28px 0px black;
 	z-index:1;
 }
- 
+
+
+
+
+.btn{
+
+ position: absolute;
+
+ top: 50%;
+
+ left: 50%;
+
+ transform: translate(-50%, -50%);
+
+ background: pink;
+
+  font-size: 20px;
+ color: white;
+  padding: 10px 30px;
+
+  cursor: pointer;
+
+}
+
+
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+
+}
+
+.modal-box {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ddf4e1;
+  padding: 1rem 1.5rem;
+  width: 24rem;
+  border-radius: 0.5rem;
+
+}
+
+.close-button {
+
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+}
+
+
+.show-modal {
+
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+
+}
