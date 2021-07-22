@@ -37,23 +37,9 @@ var getContactByCategory=()=>{
 }
 var showMessage=()=>{
 
-	
-	document.getElementById("contact").innerHTML="";
-	document.getElementById("detail").innerHTML="";
+
 	getContact(cache.get("cursor"))
-	
-	/*
-	var inter=setInterval (()=>{
-		document.getElementById("contact").innerHTML="";
-	getContact()}, 2000);
-	window.setTimeout(function () {
-	console.log("done");
-	
-	      clearInterval(inter);
-	
-	  }, 8000);
-	
-	addContact*/
+
 
 }
 
@@ -177,9 +163,7 @@ function removeDiv2()
 
 
 function addMoreField2(){
-	
-	var txt=""
-	
+
 
   var main=document.getElementById("container2");
 
@@ -217,7 +201,7 @@ function addMoreField2(){
 
 function addMoreField(){
 	
-	var txt=""
+	
 	
 
   var main=document.getElementById("container1");
@@ -259,37 +243,7 @@ function addMoreField(){
 
 function editContact(data)
 {
-	/*var txt="";
-	var contactid=data.contact_id;
 
-	var div=document.getElementById(contactid);
-	var list=	div.getElementsByTagName('li');
-	
-	list[0].contentEditable=true;	
-	list[1].contentEditable=true;
-	var detailContainer=document.getElementById("detail");
-	var element=document.getElementById("saveB");
-	console.log(element);
-
-
-	document.getElementById("A"+contactid).contentEditable=true;
-	console.log("detail_id"+data.detail[0].detail_id)
-
-	if(  document.getElementById(contactid).getElementsByTagName('li')[0].isContentEditable==true && element == null)
-     {         
-		var txt1=`</br></br</br></br></br</br><input id="saveB" type="button" value="save"  onclick="updateContact('${contactid}', '${JSON.stringify(data).split('"').join("&quot;") }'  )" />`;
-		detailContainer.innerHTML+=txt1;	
-	
-     }
-	for(let i=0;i<data.detail.length;i++)
-	{
-			var div1=document.getElementById(data.detail[i].detail_id);
-			var list1=	div1.getElementsByTagName('li');
-			list1[0].contentEditable=true;
-			list1[1].contentEditable=true;
-	   
-	}
-	*/
 	var txt=`<div id="existing_data">`
 	var doc=document.getElementById("container2")
 	var contactid=data.contact_id;
@@ -459,15 +413,10 @@ function getDeletedContact()
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send();
 	xhr.onload = function() {
-	  var data = JSON.parse(this.responseText);
-	// console.log(data);
-     	var obj= data["contact"][0]["detail"] ;
-
- 
-		toggleBin("delete");
-    
-
-	ReactDOM.render(<RenderDeletedContact key="389459348759384759348759348" data={data.contact}/> ,document.getElementById("data"))	
+	 	 var data = JSON.parse(this.responseText);
+		// console.log(data);
+ 		toggleBin("delete");
+    	ReactDOM.render(<RenderDeletedContact key="389459348759384759348759348" data={data.contact}/> ,document.getElementById("data"))	
 
 
 	}
@@ -811,7 +760,7 @@ const RenderContact=(data)=>{
 			
 								<div id={result.detail_id}>
 								<ul>
-									<li>{result.contactType}</li>:<li>{result.value}</li>
+									<li>{result.contactType}</li> &nbsp; : &nbsp;<li>{result.value}</li>
 								</ul>
 								</div>
 								
@@ -820,7 +769,10 @@ const RenderContact=(data)=>{
 								))	}				
 							
 							
-								
+									<div className="newDetail">
+										<input type="button" value="add" onClick={()=>{addDetail}} />
+									
+									</div>
 									<div className="opBar" id={"opBar"+current}>
 										<a onClick={()=>{deleteContact(current)}} style={styleObj2}> delete</a>
 										

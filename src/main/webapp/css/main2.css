@@ -56,6 +56,9 @@ ul{
 	list-style-type:none;
 	
 }
+.detail ul{
+	display:inline-flex;
+}
 input[type="button"]
 {
     background-color: #d4ffde;
@@ -157,6 +160,9 @@ background-color:#e4ffe8;
 
 #proPic{
 	margin-top:25%;
+	border-radius: 120px;
+	box-shadow: 0 0 15px 1px #324135;
+	
 }
 .flex-container {
 
